@@ -6,6 +6,7 @@ endif
 
 " Plugins via Vim-Plug
 call plug#begin()
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-sensible'
 Plug 'gregsexton/gitv'
 Plug 'tmhedberg/matchit'
@@ -44,6 +45,7 @@ set nospell
 set virtualedit=all
 set history=5000
 
+
 " Mouse support with tmux
 set mouse=a
 if &term =~ '^screen'
@@ -65,8 +67,8 @@ set showmode
 set list
 
 " UI stuff
-set background=dark
-colorscheme basic-dark
+"set background=dark
+"colorscheme basic-dark
 
 set nocursorline
 set visualbell
@@ -80,6 +82,17 @@ set showcmd
 set lazyredraw
 set tags=tags;/
 set path=**
+
+" UI stuff
+set background=light
+function! SetColours()
+   try
+      colorscheme solarized
+   catch /^Vim\%((\a\+)\)\=:E185/
+      colorscheme desert
+   endtry
+endfunction
+call SetColours()
 
 " Highlight cursor line only in current window
 augroup CulHighlight
@@ -209,3 +222,4 @@ map <Leader>l :BLines<cr>
 map <silent> <Leader>fh :Helptags<cr>
 map <silent> <Leader>f: :History:<cr>
 map <silent> <Leader>f/ :History/<cr>
+
