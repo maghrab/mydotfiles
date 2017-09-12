@@ -8,7 +8,7 @@ endif
 call plug#begin()
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-sensible'
-Plug 'gregsexton/gitv'
+Plug 'gregsexton/gitv', {'on': ['Gitv']}
 Plug 'tmhedberg/matchit'
 Plug 'vim-scripts/python_match.vim'
 Plug 'saalaa/ancient-colors.vim'
@@ -189,6 +189,17 @@ let g:tagbar_type_tac = {
    \ 'sort'    : 0
 \ }
 
+" Gitv plugin
+let g:Gitv_DoNotMapCtrlKey = 1
+nnoremap <silent> <Leader>gv :Gitv --branches --tags --remotes<cr>
+nnoremap <silent> <Leader>gv! :Gitv!<cr>
+
+" Fugitive plugin
+map <silent> <Leader>gs :Gstatus<cr>
+map <Leader>ge :Gedit<space>
+map <Leader>gd :Gdiff<space>
+map <Leader>gc :Gcommit<space>
+map <silent> <Leader>gb :Gblame<cr>
 
 " Fzf
 " Customize fzf colors to match your color scheme
@@ -205,12 +216,14 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
 command! -bang -nargs=* Rg
 \ call fzf#vim#grep(
 \   'rg --vimgrep --type-add "ar:*.{tac,tin,py,ar,am}" --type-add "tac:*.tac" --type-add "tin:*.tin" --no-ignore --color=always '.<q-args>, 1,
 \   <bang>0 ? fzf#vim#with_preview('up:60%')
 \           : fzf#vim#with_preview('right:50%:hidden', '?'),
 \   <bang>0)
+
 map <silent> <Leader>ff :Files<cr>
 map <silent> <Leader>bf :Buffers<cr>
 map <silent> <Leader>bd :bd<cr>
