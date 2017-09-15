@@ -154,12 +154,14 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " ripgrep the word under the cursor
 nnoremap <C-G> :Rg <C-R><C-W><cr>
+" tab key mappings
 nnoremap <silent><Leader>tc :tabclose<return>
 nnoremap <silent><Leader>tn :tabnew<return>
 nnoremap <Leader>te :tabedit<space>
 nnoremap <Leader>tm :tabmove<space>
 nnoremap <silent><Leader>co :copen<return>
 nnoremap <silent><Leader>cc :cclose<return>
+
 nnoremap <silent><Leader>\| :vsp<cr>
 nnoremap <silent><Leader>- :sp<cr>
 " Press Space to turn off highlighting and clear any message already displayed.
