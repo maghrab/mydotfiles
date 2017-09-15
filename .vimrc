@@ -31,6 +31,7 @@ Plug 'derekwyatt/vim-fswitch'
 Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'zw/vim-maximizer'
 call plug#end()
 
 " Options for editing
@@ -166,6 +167,8 @@ noremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 nnoremap <silent><Leader>C :call SetColours()<cr> "Fix colors when they get messed
 nnoremap <silent><Leader>tt :terminal<cr>
 nnoremap <silent><Leader>e :Explore<cr>
+" Maximizer key mapping
+nnoremap <C-W>z :MaximizerToggle<cr>
 
 " Terminal
 if has( "nvim" )
