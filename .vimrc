@@ -1,7 +1,10 @@
 " Include Arista-specific settings
-if filereadable( $VIM . "/vimfiles/arista.vim" )
+if filereadable( "/usr/share/vim/vimfiles/arista.vim" )
    let a4_auto_edit=0
-   source $VIM/vimfiles/arista.vim
+   source /usr/share/vim/vimfiles/arista.vim
+   if has('nvim')
+      set rtp+=/usr/share/vim/vimfiles/
+   endif
 endif
 
 " Plugins via Vim-Plug
@@ -31,7 +34,8 @@ Plug 'derekwyatt/vim-fswitch'
 Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'zw/vim-maximizer'
+Plug 'szw/vim-maximizer'
+"Plug 'scrooloose/nerdtree'
 call plug#end()
 
 " Options for editing
@@ -65,7 +69,9 @@ set timeoutlen=1000
 " Options for setting the bottom 2 lines
 set showmode
 
+" Show non-printing characters
 set list
+set listchars=tab:»\ ,trail:·
 
 " UI stuff
 "set background=dark
@@ -169,6 +175,7 @@ noremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 nnoremap <silent><Leader>C :call SetColours()<cr> "Fix colors when they get messed
 nnoremap <silent><Leader>tt :terminal<cr>
 nnoremap <silent><Leader>e :Explore<cr>
+map <C-n> :NERDTreeToggle<CR>
 " Maximizer key mapping
 nnoremap <silent><Leader>z :MaximizerToggle<cr>
 nnoremap <C-W>z :MaximizerToggle<cr>
@@ -178,8 +185,6 @@ if has( "nvim" )
  let g:terminal_scrollback_buffer_size=100000
     tnoremap <Esc><Esc> <C-\><C-n>
     endif
-
-
 
 " Tagbar plugin
 map <Leader>tb :TagbarToggle<CR>
@@ -199,6 +204,12 @@ let g:tagbar_type_tac = {
 let g:Gitv_DoNotMapCtrlKey = 1
 nnoremap <silent> <Leader>gv :Gitv --branches --tags --remotes<cr>
 nnoremap <silent> <Leader>gv! :Gitv!<cr>
+
+" Airline plugin
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_min_count = 2
 
 " Fugitive plugin
 map <silent> <Leader>gs :Gstatus<cr>
