@@ -49,6 +49,7 @@ set expandtab
 set nospell
 set virtualedit=all
 set history=5000
+set fillchars+=vert:\ 
 
 
 " Mouse support with tmux
@@ -210,6 +211,12 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
+
+" vim-fswitch plugin
+let g:fsnonewfiles = 'on'
+autocmd vimrc BufEnter *.*tin let b:fswitchdst = 'tac' | let b:fswitchlocs = './'
+autocmd vimrc BufEnter *.tac let b:fswitchdst = 'tin,itin' | let b:fswitchlocs = './'
+nmap <silent> <Leader>of :FSHere<cr>
 
 " Fugitive plugin
 map <silent> <Leader>gs :Gstatus<cr>
