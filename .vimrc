@@ -41,6 +41,7 @@ call plug#end()
 " Options for editing
 set nocompatible
 set shiftwidth=3
+autocmd FileType python setlocal shiftwidth=3
 set tabstop=3
 set linebreak
 set textwidth=85
