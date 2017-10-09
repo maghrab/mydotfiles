@@ -35,6 +35,9 @@ Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'szw/vim-maximizer'
+Plug 'hzchirs/vim-material'
+Plug 'kristijanhusak/vim-hybrid-material'
+
 "Plug 'scrooloose/nerdtree'
 call plug#end()
 
@@ -93,12 +96,12 @@ set tags=tags;/
 set path=**
 
 " UI stuff
-set background=light
+set background=dark
 function! SetColours()
    try
-      colorscheme solarized
+      colorscheme hybrid_material
    catch /^Vim\%((\a\+)\)\=:E185/
-      colorscheme desert
+      colorscheme hybrid_material
    endtry
 endfunction
 call SetColours()
@@ -212,6 +215,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline_theme = "hybridline"
 
 " vim-fswitch plugin
 let g:fsnonewfiles = 'on'
@@ -261,3 +265,6 @@ map <silent> <Leader>fh :Helptags<cr>
 map <silent> <Leader>f: :History:<cr>
 map <silent> <Leader>f/ :History/<cr>
 
+" Color Modifications
+" Fix for vertical line with hybrid theme
+hi VertSplit term=reverse cterm=reverse guibg=Grey
