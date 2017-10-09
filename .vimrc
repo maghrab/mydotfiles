@@ -53,13 +53,13 @@ set history=5000
 set fillchars+=vert:\ 
 
 
-" Mouse support with tmux
-set mouse=a
-if &term =~ '^screen'
-   "  tmux knows the extended mouse mode
-   set ttymouse=xterm2
-endif
- 
+"" Mouse support with tmux
+"set mouse=a
+"if &term =~ '^screen'
+"   "  tmux knows the extended mouse mode
+"   set ttymouse=xterm2
+"endif
+" 
 " Make splits appear as expected
 set splitbelow
 set splitright
