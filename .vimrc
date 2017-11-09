@@ -38,7 +38,7 @@ Plug 'szw/vim-maximizer'
 Plug 'hzchirs/vim-material'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'ntpeters/vim-better-whitespace'
-"Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
 call plug#end()
 
 " Options for editing
@@ -54,6 +54,7 @@ set nospell
 set virtualedit=all
 set history=5000
 set fillchars+=vert:\ 
+set number
 
 
 "" Mouse support with tmux
@@ -76,7 +77,6 @@ set showmode
 
 " Show non-printing characters
 set list
-set listchars=tab:»\ ,trail:·
 
 " UI stuff
 "set background=dark
@@ -165,7 +165,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " ripgrep the word under the cursor
 nnoremap <C-G> :Rg <C-R><C-W><cr>
-nnoremap <C-W>g :silent exec "!pkill rg"<cr>
+tnoremap <C-W> <Esc><Esc>:silent exec "!pkill rg"<cr>
 " tab key mappings
 nnoremap <silent><Leader>tc :tabclose<return>
 nnoremap <silent><Leader>tn :tabnew<return>
