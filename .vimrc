@@ -39,6 +39,9 @@ Plug 'hzchirs/vim-material'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'scrooloose/nerdcommenter'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-notes'
+Plug 'git@gitlab.aristanetworks.com:jeff/vim-alog.git'
 call plug#end()
 
 " Options for editing
@@ -156,6 +159,8 @@ autocmd vimrc FileType gitcommit setlocal textwidth=72
 " Treat *.*tin files as C++
 autocmd vimrc BufNewFile,BufReadPost *.*tin set filetype=cpp
 
+filetype plugin on
+
 " Mappings
 let g:mapleader = "\<Space>"
 map Y y$
@@ -186,6 +191,9 @@ map <C-n> :NERDTreeToggle<CR>
 nnoremap <silent><Leader>z :MaximizerToggle<cr>
 nnoremap <C-W>z :MaximizerToggle<cr>
 
+" Replace deleted text
+vnoremap <C-X> <Esc>`.``gvP``P
+
 " Terminal
 if has( "nvim" )
  let g:terminal_scrollback_buffer_size=100000
@@ -193,7 +201,8 @@ if has( "nvim" )
     endif
 
 " Tagbar plugin
-map <Leader>tb :TagbarToggle<CR>
+map <Leader>tb :call TagbarToggleLeft()<CR>
+map <Leader>rb :call TagbarToggleRight()<CR>
 let g:tagbar_compact = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
@@ -205,6 +214,16 @@ let g:tagbar_type_tac = {
    \ ],
    \ 'sort'    : 0
 \ }
+
+function! TagbarToggleLeft (...)
+   let g:tagbar_left = 1
+   :TagbarToggle
+endfunction
+
+function! TagbarToggleRight (...)
+   let g:tagbar_left = 0
+   :TagbarToggle
+endfunction
 
 " Gitv plugin
 let g:Gitv_DoNotMapCtrlKey = 1
