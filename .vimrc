@@ -59,14 +59,6 @@ set history=5000
 set fillchars+=vert:\ 
 set number
 
-
-"" Mouse support with tmux
-"set mouse=a
-"if &term =~ '^screen'
-"   "  tmux knows the extended mouse mode
-"   set ttymouse=xterm2
-"endif
-" 
 " Make splits appear as expected
 set splitbelow
 set splitright
@@ -80,10 +72,6 @@ set showmode
 
 " Show non-printing characters
 set list
-
-" UI stuff
-"set background=dark
-"colorscheme basic-dark
 
 set nocursorline
 set visualbell
@@ -99,12 +87,12 @@ set tags=tags;/
 set path=**
 
 " UI stuff
-set background=dark
+set background=light
 function! SetColours()
    try
-      colorscheme hybrid_material
+      colorscheme solarized
    catch /^Vim\%((\a\+)\)\=:E185/
-      colorscheme hybrid_material
+      colorscheme desert
    endtry
 endfunction
 call SetColours()
@@ -235,7 +223,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
-let g:airline_theme = "hybridline"
+let g:airline_theme = "solarized"
 
 " vim-fswitch plugin
 let g:fsnonewfiles = 'on'
