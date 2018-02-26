@@ -42,6 +42,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 Plug 'git@gitlab.aristanetworks.com:jeff/vim-alog.git'
+Plug 'wesQ3/vim-windowswap'
 call plug#end()
 
 " Options for editing
@@ -58,6 +59,9 @@ set virtualedit=all
 set history=5000
 set fillchars+=vert:\ 
 set number
+
+" Enable mouse
+set mouse=a
 
 " Make splits appear as expected
 set splitbelow
@@ -113,6 +117,17 @@ endif
 " Options for folding
 set foldmethod=indent           "fdm:   fold by the indentation by default
 set nofoldenable                "nofen: don't fold by default
+setlocal foldmethod=expr foldexpr=DiffFold(v:lnum)
+function! DiffFold(lnum)
+  let line = getline(a:lnum)
+  if line =~ '^\(diff\|---\|+++\|@@\) '
+    return 1
+ elseif line[0] =~ '[-+ ]'
+    return 2
+  else
+    return 0
+  endif
+endfunction
 
 " Options for backup files
 set nobackup
@@ -268,7 +283,7 @@ map <silent> <Leader>t :BTags<cr>
 map <silent> <Leader>T :Tags<cr>
 map <silent> <Leader>m :Marks<cr>
 map <Leader>g :Rg<space>
-map <Leader>l :BLines<cr>
+map <Leader>ll :BLines<cr>
 map <silent> <Leader>fh :Helptags<cr>
 map <silent> <Leader>f: :History:<cr>
 map <silent> <Leader>f/ :History/<cr>
