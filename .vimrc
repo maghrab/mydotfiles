@@ -94,6 +94,7 @@ set showcmd
 set lazyredraw
 set tags=tags;/
 set path=**
+set number
 
 " UI stuff
 set background=dark
