@@ -38,7 +38,11 @@ Plug 'szw/vim-maximizer'
 Plug 'hzchirs/vim-material'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'ntpeters/vim-better-whitespace'
-"Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-notes'
+Plug 'git@gitlab.aristanetworks.com:jeff/vim-alog.git'
+Plug 'wesQ3/vim-windowswap'
 call plug#end()
 
 " Options for editing
@@ -54,15 +58,11 @@ set nospell
 set virtualedit=all
 set history=5000
 set fillchars+=vert:\ 
+set number
 
+" Enable mouse
+set mouse=a
 
-"" Mouse support with tmux
-"set mouse=a
-"if &term =~ '^screen'
-"   "  tmux knows the extended mouse mode
-"   set ttymouse=xterm2
-"endif
-" 
 " Make splits appear as expected
 set splitbelow
 set splitright
@@ -76,11 +76,6 @@ set showmode
 
 " Show non-printing characters
 set list
-set listchars=tab:»\ ,trail:·
-
-" UI stuff
-"set background=dark
-"colorscheme basic-dark
 
 set nocursorline
 set visualbell
@@ -97,12 +92,12 @@ set path=**
 set number
 
 " UI stuff
-set background=dark
+set background=light
 function! SetColours()
    try
-      colorscheme hybrid_material
+      colorscheme solarized
    catch /^Vim\%((\a\+)\)\=:E185/
-      colorscheme hybrid_material
+      colorscheme desert
    endtry
 endfunction
 call SetColours()
@@ -123,6 +118,17 @@ endif
 " Options for folding
 set foldmethod=indent           "fdm:   fold by the indentation by default
 set nofoldenable                "nofen: don't fold by default
+setlocal foldmethod=expr foldexpr=DiffFold(v:lnum)
+function! DiffFold(lnum)
+  let line = getline(a:lnum)
+  if line =~ '^\(diff\|---\|+++\|@@\) '
+    return 1
+ elseif line[0] =~ '[-+ ]'
+    return 2
+  else
+    return 0
+  endif
+endfunction
 
 " Options for backup files
 set nobackup
@@ -157,6 +163,8 @@ autocmd vimrc FileType gitcommit setlocal textwidth=72
 " Treat *.*tin files as C++
 autocmd vimrc BufNewFile,BufReadPost *.*tin set filetype=cpp
 
+filetype plugin on
+
 " Mappings
 let g:mapleader = "\<Space>"
 map Y y$
@@ -166,7 +174,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " ripgrep the word under the cursor
 nnoremap <C-G> :Rg <C-R><C-W><cr>
-nnoremap <C-W>g :silent exec "!pkill rg"<cr>
+tnoremap <C-W> <Esc><Esc>:silent exec "!pkill rg"<cr>
 " tab key mappings
 nnoremap <silent><Leader>tc :tabclose<return>
 nnoremap <silent><Leader>tn :tabnew<return>
@@ -187,6 +195,9 @@ map <C-n> :NERDTreeToggle<CR>
 nnoremap <silent><Leader>z :MaximizerToggle<cr>
 nnoremap <C-W>z :MaximizerToggle<cr>
 
+" Replace deleted text
+vnoremap <C-X> <Esc>`.``gvP``P
+
 " Terminal
 if has( "nvim" )
  let g:terminal_scrollback_buffer_size=100000
@@ -194,7 +205,8 @@ if has( "nvim" )
     endif
 
 " Tagbar plugin
-map <Leader>tb :TagbarToggle<CR>
+map <Leader>tb :call TagbarToggleLeft()<CR>
+map <Leader>rb :call TagbarToggleRight()<CR>
 let g:tagbar_compact = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
@@ -207,6 +219,16 @@ let g:tagbar_type_tac = {
    \ 'sort'    : 0
 \ }
 
+function! TagbarToggleLeft (...)
+   let g:tagbar_left = 1
+   :TagbarToggle
+endfunction
+
+function! TagbarToggleRight (...)
+   let g:tagbar_left = 0
+   :TagbarToggle
+endfunction
+
 " Gitv plugin
 let g:Gitv_DoNotMapCtrlKey = 1
 nnoremap <silent> <Leader>gv :Gitv --branches --tags --remotes<cr>
@@ -217,7 +239,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
-let g:airline_theme = "hybridline"
+let g:airline_theme = "solarized"
 
 " vim-fswitch plugin
 let g:fsnonewfiles = 'on'
@@ -262,7 +284,7 @@ map <silent> <Leader>t :BTags<cr>
 map <silent> <Leader>T :Tags<cr>
 map <silent> <Leader>m :Marks<cr>
 map <Leader>g :Rg<space>
-map <Leader>l :BLines<cr>
+map <Leader>ll :BLines<cr>
 map <silent> <Leader>fh :Helptags<cr>
 map <silent> <Leader>f: :History:<cr>
 map <silent> <Leader>f/ :History/<cr>
