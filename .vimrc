@@ -173,7 +173,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " ripgrep the word under the cursor
 nnoremap <C-G> :Rg <C-R><C-W><cr>
-tnoremap <C-W> <Esc><Esc>:silent exec "!pkill rg"<cr>
+" tnoremap <C-W> <Esc><Esc>:silent exec "!pkill rg"<cr>
 " tab key mappings
 nnoremap <silent><Leader>tc :tabclose<return>
 nnoremap <silent><Leader>tn :tabnew<return>
